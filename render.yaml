@@ -3,7 +3,7 @@ services:
     name: techtreads-backend
     env: node
     plan: free
-    buildCommand: bun install && bun run build
+    buildCommand: bun install && bun run build && bun run db:push
     startCommand: bun run start
     healthCheckPath: /health
     envVars:
