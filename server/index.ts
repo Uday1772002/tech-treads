@@ -18,6 +18,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:3001",
+      "https://tech-treads.vercel.app",
       "https://*.vercel.app",
       "https://*.onrender.com",
     ],
@@ -57,10 +58,14 @@ app.get("/health", (c) => {
   return c.json({ status: "ok", timestamp: new Date().toISOString() });
 });
 
-// Mount API routes directly on the main app
-app.route("/api/auth", authRouter);
-app.route("/api/posts", postRouter);
-app.route("/api/comments", commentsRouter);
+// Create API routes with basePath
+const apiApp = new Hono<Context>()
+  .route("/auth", authRouter)
+  .route("/posts", postRouter)
+  .route("/comments", commentsRouter);
+
+// Mount the API routes
+app.route("/api", apiApp);
 
 // Export routes type (for type safety)
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
