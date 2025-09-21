@@ -58,14 +58,19 @@ app.get("/health", (c) => {
   return c.json({ status: "ok", timestamp: new Date().toISOString() });
 });
 
-// Create API routes with basePath
-const apiApp = new Hono<Context>()
-  .route("/auth", authRouter)
-  .route("/posts", postRouter)
-  .route("/comments", commentsRouter);
+// Debug endpoint to test routing
+app.get("/api", (c) => {
+  return c.json({ message: "API is working", routes: ["/auth", "/posts", "/comments"] });
+});
 
-// Mount the API routes
-app.route("/api", apiApp);
+app.get("/api/test", (c) => {
+  return c.json({ message: "API test endpoint working" });
+});
+
+// Mount routes directly with explicit paths
+app.route("/api/auth", authRouter);
+app.route("/api/posts", postRouter);
+app.route("/api/comments", commentsRouter);
 
 // Export routes type (for type safety)
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
