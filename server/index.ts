@@ -60,7 +60,10 @@ app.get("/health", (c) => {
 
 // Debug endpoint to test routing
 app.get("/api", (c) => {
-  return c.json({ message: "API is working", routes: ["/auth", "/posts", "/comments"] });
+  return c.json({
+    message: "API is working",
+    routes: ["/auth", "/posts", "/comments"],
+  });
 });
 
 app.get("/api/test", (c) => {
