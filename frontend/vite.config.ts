@@ -9,7 +9,8 @@ export default defineConfig({
   plugins: [TanStackRouterVite({}), react()],
   resolve: {
     alias: {
-      "@/shared": path.resolve(__dirname, "../shared"),
+      "@/shared/types": path.resolve(__dirname, "./src/lib/types"),
+      "@/shared": path.resolve(__dirname, "./src/lib/types"),
       "@": path.resolve(__dirname, "./src"),
     },
   },
