@@ -57,12 +57,14 @@ app.get("/health", (c) => {
   return c.json({ status: "ok", timestamp: new Date().toISOString() });
 });
 
+// Mount API routes directly on the main app
+app.route("/api/auth", authRouter);
+app.route("/api/posts", postRouter);
+app.route("/api/comments", commentsRouter);
+
+// Export routes type (for type safety)
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const routes = app
-  .basePath("/api")
-  .route("/auth", authRouter)
-  .route("/posts", postRouter)
-  .route("/comments", commentsRouter);
+const routes = app;
 
 app.onError((err, c) => {
   if (err instanceof HTTPException) {
