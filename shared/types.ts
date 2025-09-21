@@ -28,14 +28,16 @@ export const loginSchema = z.object({
 });
 
 // Define schemas locally to avoid server imports during frontend build
-export const createPostSchema = z.object({
-  title: z.string().min(1).max(255),
-  url: z.string().url().optional().or(z.literal("")),
-  content: z.string().optional(),
-}).refine((data) => data.url || data.content, {
-  message: "Either URL or Content must be provided",
-  path: ["url", "content"],
-});
+export const createPostSchema = z
+  .object({
+    title: z.string().min(1).max(255),
+    url: z.string().url().optional().or(z.literal("")),
+    content: z.string().optional(),
+  })
+  .refine((data) => data.url || data.content, {
+    message: "Either URL or Content must be provided",
+    path: ["url", "content"],
+  });
 
 export const sortBySchema = z.enum(["points", "recent"]);
 export const orderSchema = z.enum(["asc", "desc"]);
