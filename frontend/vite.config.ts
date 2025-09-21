@@ -13,6 +13,20 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  build: {
+    rollupOptions: {
+      external: [],
+      output: {
+        manualChunks: undefined,
+      },
+    },
+    commonjsOptions: {
+      include: [/node_modules/],
+    },
+  },
+  optimizeDeps: {
+    include: ["zod", "hono"],
+  },
   server: {
     proxy: {
       "/api": {
