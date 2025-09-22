@@ -1,5 +1,4 @@
 import { Hono } from "hono";
-import { serveStatic } from "hono/bun";
 import { cors } from "hono/cors";
 import { HTTPException } from "hono/http-exception";
 
@@ -109,8 +108,10 @@ app.onError((err, c) => {
   );
 });
 
-app.get("*", serveStatic({ root: "./frontend/dist" }));
-app.get("*", serveStatic({ path: "./frontend/dist/index.html" }));
+// Remove static file serving since we're deploying frontend separately to Vercel
+// The backend only needs to serve API endpoints
+// app.get("*", serveStatic({ root: "./frontend/dist" }));
+// app.get("*", serveStatic({ path: "./frontend/dist/index.html" }));
 
 export default {
   port: process.env["PORT"] || 3000,
